@@ -44,8 +44,8 @@ public class Complex {
     }
 
     public double getMagnitude() {
-        multiply(this);
-        return Math.sqrt(getReal() + getImag());
+        double squared = (getReal() * getReal()) + (getImag() * getImag());
+        return Math.sqrt(squared);
     }
 
     public void setReal(double real) {

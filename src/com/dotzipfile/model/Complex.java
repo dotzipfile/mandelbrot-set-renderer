@@ -17,8 +17,29 @@ public class Complex {
     }
 
     public Complex multiply(Complex other) {
-        setReal(getReal() * other.getReal());
-        setImag(getImag() * other.getImag());
+        /*
+         * e.g (4 + 5i)(2 + 7i)
+         * = 4(2 + 7i) + 5i(2 + 7i)
+         * = (4 * 2) + (4 * 7i) + (5i * 2) + (5i * 7i)
+         * = 8 + 28i + 10i + 35i^2
+         * i^2 is -1
+         * = 8 + 38i + (35 * -1)
+         * = -27 + 38i
+         *
+         * TODO: ^^ ... I need to double check that
+         */
+
+        // Really had to spell that out for myself
+        double realOne = getReal() * other.getReal();
+        double imagOne = getReal() * other.getImag();
+        double imagTwo = getImag() * other.getReal();
+        double imagThreeSquared = getImag() * other.getImag();
+
+        double finalReal = realOne + (imagThreeSquared * (-1));
+        double finalImag = imagOne + imagTwo;
+
+        setReal(finalReal);
+        setImag(finalImag);
         return this;
     }
 

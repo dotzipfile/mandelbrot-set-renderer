@@ -4,7 +4,6 @@ import com.dotzipfile.model.Complex;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.awt.image.Raster;
 import java.io.File;
 import java.io.IOException;
 
@@ -29,13 +28,12 @@ public class Main {
                 Complex z = new Complex(0, 0);
 
                 double cx = startX + (j * dx);
-                double cy = startY + (i * dy);
+                double cy = startY - (i * dy);
 
                 Complex c = new Complex(cx, cy);
 
                 int iterations = 0;
                 while(true) {
-
                     z = z.multiply(z).add(c);
 
                     iterations ++;
@@ -49,35 +47,17 @@ public class Main {
                 } else {
                     mandelbrotValues[i][j] = (byte)iterations;
                 }
-
-                System.out.println(z.getMagnitude());
             }
         }
 
-//        for(int i = 0; i < rowsCols; i ++) {
-//            for(int j = 0; j < rowsCols; j ++) {
-//                /*
-//                 * TODO: This is a dirty hack because I'm getting some NAN's from Math.sqrt()
-//                 * I think it's from trying to get the sqrt of - numbers
-//                 * So there's probably some error in my code
-//                 * but I want to try and render it anyway to see if it's any way close
-//                 */
-//                if(mandelbrotValues[i][j] == 100) {
-//                    mandelbrotValues[i][j] = 0;
-//                } else {
-//                    mandelbrotValues[i][j] = 1;
-//                }
-//            }
-//        }
-//
-//        BufferedImage finalImg = toBufferedImage(mandelbrotValues);
-//
-//        try {
-//            File outputfile = new File("mandelbrot.png");
-//            ImageIO.write(finalImg, "png", outputfile);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        BufferedImage finalImg = toBufferedImage(mandelbrotValues);
+
+        try {
+            File outputfile = new File("mandelbrot.png");
+            ImageIO.write(finalImg, "png", outputfile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static BufferedImage toBufferedImage(byte[][] rawGray) {
